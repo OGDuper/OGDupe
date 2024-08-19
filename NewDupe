@@ -1,0 +1,80 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "MM2 Dupe | OGDuper", HidePremium = false, SaveConfig = false, ConfigFolder = "OrionTest"})
+local Tab = Window:MakeTab({
+	Name = "Main",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Section = Tab:AddSection({
+	Name = "Dupe"
+})
+OrionLib:MakeNotification({
+	Name = "Success!",
+	Content = "Execute Success",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+
+local weaponName = ""
+local amountValue = 35
+
+Tab:AddTextbox({
+	Name = "Weapon For Dupe",
+	Default = "Example: Harvester",
+	TextDisappear = false,
+	Callback = function(Value)
+		weaponName = Value
+		print("Selected weapon: " .. weaponName)
+	end	  
+})
+
+Tab:AddSlider({
+	Name = "Amount",
+	Min = 5,
+	Max = 75,
+	Default = 35,
+	Color = Color3.new(1.000000, 0.000000, 0.749020),
+	Increment = 1,
+	ValueName = "Amount",
+	Callback = function(Value)
+		amountValue = Value
+		print("Selected amount: " .. amountValue)
+	end    
+})
+
+Tab:AddButton({
+	Name = "Start!",
+	Callback = function()
+      		print("Button pressed. Starting dupe process...")
+      		startDupeProcess(amountValue)
+  	end    
+})
+
+local function startDupeProcess(maxAmount)
+	local amountLabel = game:GetService("Players").Aeratens77306.PlayerGui.MainGUI.Game.Inventory.Main.Weapons.Items.Container.Holiday.Container.Christmas.Container.NewItem11.Container.Amount
+
+	local function increaseAmountOverTime(label, maxAmount)
+	    -- Преобразуем текстовое значение в число
+	    local currentAmount = tonumber(label.Text)
+	    
+	    -- Если текущее значение корректное и меньше максимального
+	    if currentAmount and currentAmount < maxAmount then
+	        while currentAmount < maxAmount do
+	            -- Увеличиваем значение на 1
+	            currentAmount = currentAmount + 1
+	            -- Преобразуем число обратно в текст и записываем его
+	            label.Text = tostring(currentAmount)
+	            print("Updated amount to: " .. currentAmount)
+	            
+	            -- Ждем 1 секунду перед следующим увеличением
+	            wait(1)
+	        end
+	    else
+	        print("Amount is already at or above " .. maxAmount)
+	    end
+	end
+
+	-- Запуск функции для увеличения значения
+	increaseAmountOverTime(amountLabel, maxAmount)
+end
