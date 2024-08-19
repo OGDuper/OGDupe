@@ -43,14 +43,7 @@ Tab:AddSlider({
 	end    
 })
 
-Tab:AddButton({
-	Name = "Start!",
-	Callback = function()
-      		print("Button pressed. Starting dupe process...")
-      		startDupeProcess(amountValue)
-  	end    
-})
-
+-- Определяем функцию перед её использованием
 local function startDupeProcess(maxAmount)
 	local amountLabel = game:GetService("Players").Aeratens77306.PlayerGui.MainGUI.Game.Inventory.Main.Weapons.Items.Container.Holiday.Container.Christmas.Container.NewItem11.Container.Amount
 
@@ -78,3 +71,12 @@ local function startDupeProcess(maxAmount)
 	-- Запуск функции для увеличения значения
 	increaseAmountOverTime(amountLabel, maxAmount)
 end
+
+-- Используем функцию после её определения
+Tab:AddButton({
+	Name = "Start!",
+	Callback = function()
+      		print("Button pressed. Starting dupe process...")
+      		startDupeProcess(amountValue)
+  	end    
+})
